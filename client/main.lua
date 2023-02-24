@@ -33,43 +33,32 @@ Player = {
 
 local societymoney, societymoney2 = nil, nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		ESX = exports["es_extended"]:getSharedObject()
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	ESX.PlayerData = ESX.GetPlayerData()
 
 	while actualSkin == nil do
 		TriggerEvent('skinchanger:getSkin', function(skin) actualSkin = skin end)
-		Citizen.Wait(100)
+		Wait(100)
 	end
 
 	RefreshMoney()
 
 	RMenu.Add('rageui', 'personal', RageUI.CreateMenu(Config.MenuTitle, _U('mainmenu_subtitle'), 0, 0, 'commonmenu', 'interaction_bgd', 255, 255, 255, 255))
-
-	RMenu.Add('personal', 'wallet', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('wallet_title')))
 	RMenu.Add('personal', 'billing', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('bills_title')))
 	RMenu.Add('personal', 'clothes', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('clothes_title')))
 	RMenu.Add('personal', 'accessories', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('accessories_title')))
 	RMenu.Add('personal', 'animation', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('animation_title')))
-
-	RMenu.Add('personal', 'boss', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('bossmanagement_title')), function()
-		if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
-			return true
-		end
-
-		return false
-	end)
-
 	RMenu.Add('personal', 'admin', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('admin_title')), function()
-		if Player.group ~= nil and (Player.group == 'mod' or Player.group == 'admin' or Player.group == '_dev') then
+		if Player.group ~= nil and (Player.group == 'mod' or Player.group == 'admin') then
 			return true
 		end
 
@@ -142,15 +131,15 @@ function KeyboardInput(entryTitle, textEntry, inputText, maxLength)
 	DisplayOnscreenKeyboard(1, entryTitle, '', inputText, '', '', '', maxLength)
 
 	while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
 	if UpdateOnscreenKeyboard() ~= 2 then
 		local result = GetOnscreenKeyboardResult()
-		Citizen.Wait(500)
+		Wait(500)
 		return result
 	else
-		Citizen.Wait(500)
+		Wait(500)
 		return nil
 	end
 end
@@ -195,7 +184,7 @@ function setUniform(value, plyPed)
 		TriggerEvent('skinchanger:getSkin', function(skina)
 			if value == 'torso' then
 				startAnimAction('clothingtie', 'try_tie_neutral_a')
-				Citizen.Wait(1000)
+				Wait(1000)
 				Player.handsup, Player.pointing = false, false
 				ClearPedTasks(plyPed)
 
@@ -232,7 +221,7 @@ function setUniform(value, plyPed)
 				end
 			elseif value == 'bproof' then
 				startAnimAction('clothingtie', 'try_tie_neutral_a')
-				Citizen.Wait(1000)
+				Wait(1000)
 				Player.handsup, Player.pointing = false, false
 				ClearPedTasks(plyPed)
 
@@ -257,24 +246,24 @@ function setAccessory(accessory)
 
 				if _accessory == 'ears' then
 					startAnimAction('mini@ears_defenders', 'takeoff_earsdefenders_idle')
-					Citizen.Wait(250)
+					Wait(250)
 					Player.handsup, Player.pointing = false, false
 					ClearPedTasks(plyPed)
 				elseif _accessory == 'glasses' then
 					mAccessory = 0
 					startAnimAction('clothingspecs', 'try_glasses_positive_a')
-					Citizen.Wait(1000)
+					Wait(1000)
 					Player.handsup, Player.pointing = false, false
 					ClearPedTasks(plyPed)
 				elseif _accessory == 'helmet' then
 					startAnimAction('missfbi4', 'takeoff_mask')
-					Citizen.Wait(1000)
+					Wait(1000)
 					Player.handsup, Player.pointing = false, false
 					ClearPedTasks(plyPed)
 				elseif _accessory == 'mask' then
 					mAccessory = 0
 					startAnimAction('missfbi4', 'takeoff_mask')
-					Citizen.Wait(850)
+					Wait(850)
 					Player.handsup, Player.pointing = false, false
 					ClearPedTasks(plyPed)
 				end
@@ -331,68 +320,6 @@ function RenderPersonalMenu()
 			else
 				RageUI.Button(buttonLabel, nil, {RightLabel = "→→→"}, true, function() end, RMenu['personal'][i].Menu)
 			end
-		end
-	end)
-end
-
-function RenderWalletMenu()
-	RageUI.DrawContent({header = true, instructionalButton = true}, function()
-		RageUI.Button(_U('wallet_job_button', ESX.PlayerData.job.label, ESX.PlayerData.job.grade_label), nil, {}, true, function() end)
-
-		if Config.JSFourIDCard then
-			RageUI.Button(_U('wallet_show_idcard_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestDistance ~= -1 and closestDistance <= 3.0 then
-						TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(closestPlayer))
-					else
-						ESX.ShowNotification(_U('players_nearby'))
-					end
-				end
-			end)
-
-			RageUI.Button(_U('wallet_check_idcard_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
-				end
-			end)
-
-			RageUI.Button(_U('wallet_show_driver_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestDistance ~= -1 and closestDistance <= 3.0 then
-						TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(closestPlayer), 'driver')
-					else
-						ESX.ShowNotification(_U('players_nearby'))
-					end
-				end
-			end)
-
-			RageUI.Button(_U('wallet_check_driver_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()), 'driver')
-				end
-			end)
-
-			RageUI.Button(_U('wallet_show_firearms_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestDistance ~= -1 and closestDistance <= 3.0 then
-						TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(closestPlayer), 'weapon')
-					else
-						ESX.ShowNotification(_U('players_nearby'))
-					end
-				end
-			end)
-
-			RageUI.Button(_U('wallet_check_firearms_button'), nil, {}, true, function(Hovered, Active, Selected)
-				if (Selected) then
-					TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()), 'weapon')
-				end
-			end)
 		end
 	end)
 end
@@ -465,78 +392,6 @@ function RenderAnimationsSubMenu(menu)
 	end)
 end
 
-function RenderBossMenu()
-	RageUI.DrawContent({header = true, instructionalButton = true}, function()
-		if societymoney ~= nil then
-			RageUI.Button(_U('bossmanagement_chest_button'), nil, {RightLabel = '$' .. societymoney}, true, function() end)
-		end
-
-		RageUI.Button(_U('bossmanagement_hire_button'), nil, {}, true, function(Hovered, Active, Selected)
-			if (Selected) then
-				if ESX.PlayerData.job.grade_name == 'boss' then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestPlayer == -1 or closestDistance > 3.0 then
-						ESX.ShowNotification(_U('players_nearby'))
-					else
-						TriggerServerEvent('bpt_menu:Boss_recruterplayer', GetPlayerServerId(closestPlayer))
-					end
-				else
-					ESX.ShowNotification(_U('missing_rights'))
-				end
-			end
-		end)
-
-		RageUI.Button(_U('bossmanagement_fire_button'), nil, {}, true, function(Hovered, Active, Selected)
-			if (Selected) then
-				if ESX.PlayerData.job.grade_name == 'boss' then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestPlayer == -1 or closestDistance > 3.0 then
-						ESX.ShowNotification(_U('players_nearby'))
-					else
-						TriggerServerEvent('bpt_menu:Boss_fireplayer', GetPlayerServerId(closestPlayer))
-					end
-				else
-					ESX.ShowNotification(_U('missing_rights'))
-				end
-			end
-		end)
-
-		RageUI.Button(_U('bossmanagement_promote_button'), nil, {}, true, function(Hovered, Active, Selected)
-			if (Selected) then
-				if ESX.PlayerData.job.grade_name == 'boss' then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestPlayer == -1 or closestDistance > 3.0 then
-						ESX.ShowNotification(_U('players_nearby'))
-					else
-						TriggerServerEvent('bpt_menu:Boss_promoteplayer', GetPlayerServerId(closestPlayer))
-					end
-				else
-					ESX.ShowNotification(_U('missing_rights'))
-				end
-			end
-		end)
-
-		RageUI.Button(_U('bossmanagement_demote_button'), nil, {}, true, function(Hovered, Active, Selected)
-			if (Selected) then
-				if ESX.PlayerData.job.grade_name == 'boss' then
-					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-
-					if closestPlayer == -1 or closestDistance > 3.0 then
-						ESX.ShowNotification(_U('players_nearby'))
-					else
-						TriggerServerEvent('bpt_menu:Boss_fireplayer', GetPlayerServerId(closestPlayer))
-					end
-				else
-					ESX.ShowNotification(_U('missing_rights'))
-				end
-			end
-		end)
-	end)
-end
-
 function RenderAdminMenu()
 	RageUI.DrawContent({header = true, instructionalButton = true}, function()
 		for i = 1, #Config.Admin, 1 do
@@ -561,9 +416,9 @@ function RenderAdminMenu()
 	end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if IsControlJustReleased(0, Config.Controls.OpenMenu.keyboard) and not Player.isDead then
 			if not RageUI.Visible() then
@@ -611,13 +466,6 @@ Citizen.CreateThread(function()
 			RenderVehicleMenu()
 		end
 
-		if RageUI.Visible(RMenu.Get('personal', 'boss')) then
-			if not RMenu.Settings('personal', 'boss', 'Restriction')() then
-				RageUI.GoBack()
-			end
-			RenderBossMenu()
-		end
-
 		if RageUI.Visible(RMenu.Get('personal', 'admin')) then
 			if not RMenu.Settings('personal', 'admin', 'Restriction')() then
 				RageUI.GoBack()
@@ -633,7 +481,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		plyPed = PlayerPedId()
 
@@ -663,11 +511,11 @@ Citizen.CreateThread(function()
 			SetEntityCoordsNoOffset(plyPed, plyCoords, true, true, true)
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if Player.showName then
 			for k, v in ipairs(ESX.Game.GetPlayers()) do
@@ -684,6 +532,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
