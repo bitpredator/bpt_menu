@@ -5,9 +5,7 @@ lua54 'yes'
 
 author 'bitpredator'
 description 'bpt_menu developed for fivem, compatible with esx'
-version '0.0.4'
-
-dependency 'es_extended'
+version '1.0.0'
 
 shared_scripts {
 	'@es_extended/locale.lua',
@@ -33,3 +31,5 @@ client_scripts {
 }
 
 shared_script '@es_extended/imports.lua'
+
+dependency 'es_extended'
