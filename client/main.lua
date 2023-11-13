@@ -547,7 +547,7 @@ function RenderActionsMenu(type)
 
 				RageUI.Button(_U('loadout_givemun_button'), "", {RightBadge = RageUI.BadgeStyle.Ammo}, true, function(Hovered, Active, Selected)
 					if (Selected) then
-						local post, quantity = CheckQuantity(KeyboardInput('KORIOZ_BOX_AMMO_AMOUNT', _U('dialogbox_amount_ammo'), '', 8))
+						local post, quantity = CheckQuantity(KeyboardInput('BPT_BOX_AMMO_AMOUNT', _U('dialogbox_amount_ammo'), '', 8))
 
 						if post then
 							local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()

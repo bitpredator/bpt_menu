@@ -252,7 +252,7 @@ Config.Admin = {
 		label = _U('admin_tpxyz_button'),
 		groups = {'_dev', 'owner', 'superadmin', 'admin'},
 		command = function()
-			local pos = KeyboardInput('KORIOZ_BOX_XYZ', _U('dialogbox_xyz'), '', 50)
+			local pos = KeyboardInput('BPT_BOX_XYZ', _U('dialogbox_xyz'), '', 50)
 
 			if pos ~= nil and pos ~= '' then
 				local _, _, x, y, z = string.find(pos, '([%d%.]+) ([%d%.]+) ([%d%.]+)')
@@ -334,7 +334,7 @@ Config.Admin = {
 		label = _U('admin_spawnveh_button'),
 		groups = {'_dev', 'owner', 'superadmin'},
 		command = function()
-			local modelName = KeyboardInput('KORIOZ_BOX_VEHICLE_NAME', _U('dialogbox_vehiclespawner'), '', 50)
+			local modelName = KeyboardInput('BPT_BOX_VEHICLE_NAME', _U('dialogbox_vehiclespawner'), '', 50)
 
 			if modelName ~= nil then
 				modelName = tostring(modelName)
