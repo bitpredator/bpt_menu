@@ -218,7 +218,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(funct
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~r~rétrogradé par %s~w~.'):format(sourceXPlayer.name))
 			else
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous ne pouvez pas ~r~rétrograder~w~ d\'avantage.')
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))
 			end
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
@@ -238,7 +238,7 @@ AddEventHandler('bpt_menu:Boss_recruterplayer', makeTargetedEventFunction(functi
 
 		targetXPlayer.setJob(sourceJob.name, 0)
 		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_hired'):format(targetXPlayer.name))
-		TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~embauché par %s~w~.'):format(sourceXPlayer.name))
+		TriggerClientEvent('esx:showNotification', target, _U('you_hired_by'):format(sourceXPlayer.name))
 	end
 end))
 
@@ -253,8 +253,8 @@ AddEventHandler('bpt_menu:Boss_virerplayer', makeTargetedEventFunction(function(
 
 		if sourceJob.name == targetJob.name then
 			targetXPlayer.setJob('unemployed', 0)
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~viré %s~w~.'):format(targetXPlayer.name))
-			TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~viré par %s~w~.'):format(sourceXPlayer.name))
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_fired'):format(targetXPlayer.name))
+			TriggerClientEvent('esx:showNotification', target, _U('you_were_fired'):format(sourceXPlayer.name))
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre entreprise.')
 		end
@@ -309,7 +309,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(func
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~r~rétrogradé par %s~w~.'):format(sourceXPlayer.name))
 			else
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous ne pouvez pas ~r~rétrograder~w~ d\'avantage.')
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))
 			end
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
@@ -329,7 +329,7 @@ AddEventHandler('bpt_menu:Boss_recruterplayer2', makeTargetedEventFunction(funct
 
 		targetXPlayer.setJob2(sourceJob2.name, 0)
 		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_hired'):format(targetXPlayer.name))
-		TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~embauché par %s~w~.'):format(sourceXPlayer.name))
+		TriggerClientEvent('esx:showNotification', target, _U('you_hired_by'):format(sourceXPlayer.name))
 	end
 end))
 
@@ -344,8 +344,8 @@ AddEventHandler('bpt_menu:Boss_virerplayer2', makeTargetedEventFunction(function
 
 		if sourceJob2.name == targetJob2.name then
 			targetXPlayer.setJob2('unemployed2', 0)
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~viré %s~w~.'):format(targetXPlayer.name))
-			TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~viré par %s~w~.'):format(sourceXPlayer.name))
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_fired'):format(targetXPlayer.name))
+			TriggerClientEvent('esx:showNotification', target, _U('you_were_fired'):format(sourceXPlayer.name))
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
 		end

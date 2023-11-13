@@ -214,5 +214,9 @@ Locales['it'] = {
 	['received_money_cash'] = 'hai ricevuto del denaro in contanti',
 	['not_permission'] = 'Non sei autorizzato',
 	['player_not_your_company'] = 'Il giocatore non è nella tua azienda.',
-	['you_hired'] = 'Hai assunto nella tua azienda'
+	['you_hired'] = 'Hai assunto nella tua azienda',
+	['you_were_fired'] = 'Sei stato licenziato',
+	['you_fired'] = 'Hai licenziato',
+	['you_hired_by'] = 'Sei stato assunto da:',
+	['not_downgrade'] = 'Non puoi più retrocedere'
 }
