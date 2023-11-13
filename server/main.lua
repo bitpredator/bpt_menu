@@ -196,7 +196,7 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer', makeTargetedEventFunction(func
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre entreprise.')
 		end
 	else
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous n\'avez pas ~r~l\'autorisation~w~.')
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 	end
 end))
 
@@ -221,10 +221,10 @@ AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(funct
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous ne pouvez pas ~r~rétrograder~w~ d\'avantage.')
 			end
 		else
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre organisation.')
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
 		end
 	else
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous n\'avez pas ~r~l\'autorisation~w~.')
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 	end
 end))
 
@@ -237,7 +237,7 @@ AddEventHandler('bpt_menu:Boss_recruterplayer', makeTargetedEventFunction(functi
 		local targetXPlayer = ESX.GetPlayerFromId(target)
 
 		targetXPlayer.setJob(sourceJob.name, 0)
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~g~recruté %s~w~.'):format(targetXPlayer.name))
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_hired'):format(targetXPlayer.name))
 		TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~embauché par %s~w~.'):format(sourceXPlayer.name))
 	end
 end))
@@ -259,7 +259,7 @@ AddEventHandler('bpt_menu:Boss_virerplayer', makeTargetedEventFunction(function(
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre entreprise.')
 		end
 	else
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous n\'avez pas ~r~l\'autorisation~w~.')
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 	end
 end))
 
@@ -284,10 +284,10 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer2', makeTargetedEventFunction(fun
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous devez demander une autorisation ~r~Gouvernementale~w~.')
 			end
 		else
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre organisation.')
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
 		end
 	else
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous n\'avez pas ~r~l\'autorisation~w~.')
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 	end
 end))
 
@@ -312,10 +312,10 @@ AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(func
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous ne pouvez pas ~r~rétrograder~w~ d\'avantage.')
 			end
 		else
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre organisation.')
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
 		end
 	else
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous n\'avez pas ~r~l\'autorisation~w~.')
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 	end
 end))
 
@@ -328,7 +328,7 @@ AddEventHandler('bpt_menu:Boss_recruterplayer2', makeTargetedEventFunction(funct
 		local targetXPlayer = ESX.GetPlayerFromId(target)
 
 		targetXPlayer.setJob2(sourceJob2.name, 0)
-		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~g~recruté %s~w~.'):format(targetXPlayer.name))
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_hired'):format(targetXPlayer.name))
 		TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~embauché par %s~w~.'):format(sourceXPlayer.name))
 	end
 end))
@@ -347,7 +347,7 @@ AddEventHandler('bpt_menu:Boss_virerplayer2', makeTargetedEventFunction(function
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~viré %s~w~.'):format(targetXPlayer.name))
 			TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~viré par %s~w~.'):format(sourceXPlayer.name))
 		else
-			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre organisation.')
+			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
 		end
 	else
 		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))

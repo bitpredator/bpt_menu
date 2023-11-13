@@ -212,5 +212,7 @@ Locales['it'] = {
 	['tequila-la'] = 'tequila-la',
 	['bahama_mamas'] = 'bahama mamas',
 	['received_money_cash'] = 'hai ricevuto del denaro in contanti',
-	['not_permission'] = 'Non sei autorizzato'
+	['not_permission'] = 'Non sei autorizzato',
+	['player_not_your_company'] = 'Il giocatore non è nella tua azienda.',
+	['you_hired'] = 'Hai assunto nella tua azienda'
 }
