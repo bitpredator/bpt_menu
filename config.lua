@@ -16,7 +16,8 @@ Config = {}
 Config.Locale = 'it'
 
 -- GENERAL --
-Config.MenuTitle = 'EmpireTown' -- change it to you're server name
+Config.MenuTitle = 'ServerName' -- change it to you're server name
+Config.DoubleJob = false -- enable if you're using esx double job
 Config.NoclipSpeed = 1.0 -- change it to change the speed in noclip
 Config.JSFourIDCard = false -- enable if you're using jsfour-idcard
 
@@ -26,7 +27,34 @@ Config.Controls = {
 	HandsUP = {keyboard = Keys['~']},
 	Pointing = {keyboard = Keys['B']},
 	Crouch = {keyboard = Keys['LEFTCTRL']},
-	StopTasks = {keyboard = Keys['X']}
+	StopTasks = {keyboard = Keys['X']},
+	TPMarker = {keyboard1 = Keys['LEFTALT'], keyboard2 = Keys['E']}
+}
+
+-- GPS --
+Config.GPS = {
+	{label = _U('none'), coords = nil},
+	{label = _U('police_station'), coords = vector2(425.13, -979.55)},
+	{label = _U('central_garage'), coords = vector2(-449.67, -340.83)},
+	{label = _U('hospital'), coords = vector2(-33.88, -1102.37)},
+	{label = _U('dealer'), coords = vector2(215.06, -791.56)},
+	{label = _U('bennys_custom'), coords = vector2(-212.13, -1325.27)},
+	{label = _U('job_center'), coords = vector2(-264.83, -964.54)},
+	{label = _U('driving_school'), coords = vector2(-829.22, -696.99)},
+	{label = _U('tequila-la'), coords = vector2(-565.09, 273.45)},
+	{label = _U('bahama_mamas'), coords = vector2(-1391.06, -590.34)}
+}
+
+-- VOICE --
+Config.Voice = {
+	activated = true,
+	defaultLevel = 8.0
+}
+
+Config.Voice.items = {
+	{label = _U('voice_whisper'), level = 3.0},
+	{label = _U('voice_normal'), level = Config.Voice.defaultLevel},
+	{label = _U('voice_cry'), level = 14.0}
 }
 
 -- ANIMATIONS --
@@ -186,13 +214,13 @@ Config.Admin = {
 	{
 		name = 'goto',
 		label = _U('admin_goto_button'),
-		groups = {'admin', 'mod'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin', 'mod'},
 		command = function()
 			local plyId = KeyboardInput('BPT_BOX_ID', _U('dialogbox_playerid'), '', 8)
 
 			if plyId ~= nil then
 				plyId = tonumber(plyId)
-				
+
 				if type(plyId) == 'number' then
 					TriggerServerEvent('bpt_menu:Admin_BringS', GetPlayerServerId(PlayerId()), plyId)
 				end
@@ -204,13 +232,13 @@ Config.Admin = {
 	{
 		name = 'bring',
 		label = _U('admin_bring_button'),
-		groups = {'admin', 'mod'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin', 'mod'},
 		command = function()
 			local plyId = KeyboardInput('BPT_BOX_ID', _U('dialogbox_playerid'), '', 8)
 
 			if plyId ~= nil then
 				plyId = tonumber(plyId)
-				
+
 				if type(plyId) == 'number' then
 					TriggerServerEvent('bpt_menu:Admin_BringS', plyId, GetPlayerServerId(PlayerId()))
 				end
@@ -220,9 +248,27 @@ Config.Admin = {
 		end
 	},
 	{
+		name = 'tpxyz',
+		label = _U('admin_tpxyz_button'),
+		groups = {'_dev', 'owner', 'superadmin', 'admin'},
+		command = function()
+			local pos = KeyboardInput('KORIOZ_BOX_XYZ', _U('dialogbox_xyz'), '', 50)
+
+			if pos ~= nil and pos ~= '' then
+				local _, _, x, y, z = string.find(pos, '([%d%.]+) ([%d%.]+) ([%d%.]+)')
+
+				if x ~= nil and y ~= nil and z ~= nil then
+					SetEntityCoords(plyPed, x + .0, y + .0, z + .0)
+				end
+			end
+
+			RageUI.CloseAll()
+		end
+	},
+	{
 		name = 'noclip',
 		label = _U('admin_noclip_button'),
-		groups = {'admin', 'mod'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin', 'mod'},
 		command = function()
 			Player.noclip = not Player.noclip
 
@@ -254,7 +300,7 @@ Config.Admin = {
 	{
 		name = 'godmode',
 		label = _U('admin_godmode_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin'},
 		command = function()
 			Player.godmode = not Player.godmode
 
@@ -270,7 +316,7 @@ Config.Admin = {
 	{
 		name = 'ghostmode',
 		label = _U('admin_ghostmode_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin'},
 		command = function()
 			Player.ghostmode = not Player.ghostmode
 
@@ -284,9 +330,29 @@ Config.Admin = {
 		end
 	},
 	{
+		name = 'spawnveh',
+		label = _U('admin_spawnveh_button'),
+		groups = {'_dev', 'owner', 'superadmin'},
+		command = function()
+			local modelName = KeyboardInput('KORIOZ_BOX_VEHICLE_NAME', _U('dialogbox_vehiclespawner'), '', 50)
+
+			if modelName ~= nil then
+				modelName = tostring(modelName)
+
+				if type(modelName) == 'string' then
+					ESX.Game.SpawnVehicle(modelName, GetEntityCoords(plyPed), GetEntityHeading(plyPed), function(vehicle)
+						TaskWarpPedIntoVehicle(plyPed, vehicle, -1)
+					end)
+				end
+			end
+
+			RageUI.CloseAll()
+		end
+	},
+	{
 		name = 'repairveh',
 		label = _U('admin_repairveh_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin'},
 		command = function()
 			local plyVeh = GetVehiclePedIsIn(plyPed, false)
 			SetVehicleFixed(plyVeh)
@@ -296,7 +362,7 @@ Config.Admin = {
 	{
 		name = 'flipveh',
 		label = _U('admin_flipveh_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin'},
 		command = function()
 			local plyCoords = GetEntityCoords(plyPed)
 			local newCoords = plyCoords + vector3(0.0, 2.0, 0.0)
@@ -309,7 +375,7 @@ Config.Admin = {
 	{
 		name = 'givemoney',
 		label = _U('admin_givemoney_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin'},
 		command = function()
 			local amount = KeyboardInput('BPT_BOX_AMOUNT', _U('dialogbox_amount'), '', 8)
 
@@ -327,7 +393,7 @@ Config.Admin = {
 	{
 		name = 'givebank',
 		label = _U('admin_givebank_button'),
-		groups = {'admin'},
+		groups = {'_dev', 'owner', 'superadmin'},
 		command = function()
 			local amount = KeyboardInput('BPT_BOX_AMOUNT', _U('dialogbox_amount'), '', 8)
 
@@ -343,9 +409,35 @@ Config.Admin = {
 		end
 	},
 	{
+		name = 'givedirtymoney',
+		label = _U('admin_givedirtymoney_button'),
+		groups = {'_dev', 'owner', 'superadmin'},
+		command = function()
+			local amount = KeyboardInput('BPT_BOX_AMOUNT', _U('dialogbox_amount'), '', 8)
+
+			if amount ~= nil then
+				amount = tonumber(amount)
+
+				if type(amount) == 'number' then
+					TriggerServerEvent('bpt_menu:Admin_giveDirtyMoney', amount)
+				end
+			end
+
+			RageUI.CloseAll()
+		end
+	},
+	{
+		name = 'showxyz',
+		label = _U('admin_showxyz_button'),
+		groups = {'_dev', 'owner', 'superadmin', 'admin', 'mod'},
+		command = function()
+			Player.showCoords = not Player.showCoords
+		end
+	},
+	{
 		name = 'showname',
 		label = _U('admin_showname_button'),
-		groups = {'admin', 'mod'},
+		groups = {'_dev', 'owner', 'superadmin', 'admin', 'mod'},
 		command = function()
 			Player.showName = not Player.showName
 
@@ -355,6 +447,73 @@ Config.Admin = {
 					Player.gamerTags[targetPlayer] = nil
 				end
 			end
+		end
+	},
+	{
+		name = 'tpmarker',
+		label = _U('admin_tpmarker_button'),
+		groups = {'_dev', 'owner', 'superadmin', 'admin'},
+		command = function()
+			local waypointHandle = GetFirstBlipInfoId(8)
+
+			if DoesBlipExist(waypointHandle) then
+				CreateThread(function()
+					local waypointCoords = GetBlipInfoIdCoord(waypointHandle)
+					local foundGround, zCoords, zPos = false, -500.0, 0.0
+
+					while not foundGround do
+						zCoords = zCoords + 10.0
+						RequestCollisionAtCoord(waypointCoords.x, waypointCoords.y, zCoords)
+						Wait(0)
+						foundGround, zPos = GetGroundZFor_3dCoord(waypointCoords.x, waypointCoords.y, zCoords)
+
+						if not foundGround and zCoords >= 2000.0 then
+							foundGround = true
+						end
+					end
+
+					SetPedCoordsKeepVehicle(plyPed, waypointCoords.x, waypointCoords.y, zPos)
+					ESX.ShowNotification(_U('admin_tpmarker'))
+				end)
+			else
+				ESX.ShowNotification(_U('admin_nomarker'))
+			end
+		end
+	},
+	{
+		name = 'revive',
+		label = _U('admin_revive_button'),
+		groups = {'_dev', 'owner', 'superadmin', 'admin'},
+		command = function()
+			local plyId = KeyboardInput('BPT_BOX_ID', _U('dialogbox_playerid'), '', 8)
+
+			if plyId ~= nil then
+				plyId = tonumber(plyId)
+
+				if type(plyId) == 'number' then
+					TriggerServerEvent('esx_ambulancejob:revive', plyId)
+				end
+			end
+
+			RageUI.CloseAll()
+		end
+	},
+	{
+		name = 'changeskin',
+		label = _U('admin_changeskin_button'),
+		groups = {'_dev', 'owner', 'superadmin'},
+		command = function()
+			RageUI.CloseAll()
+			Wait(100)
+			TriggerEvent('esx_skin:openSaveableMenu')
+		end
+	},
+	{
+		name = 'saveskin',
+		label = _U('admin_saveskin_button'),
+		groups = {'_dev', 'owner', 'superadmin'},
+		command = function()
+			TriggerEvent('esx_skin:requestSaveSkin')
 		end
 	}
 }
