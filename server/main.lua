@@ -188,9 +188,9 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer', makeTargetedEventFunction(func
 				targetXPlayer.setJob(targetJob.name, newGrade)
 
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~g~promu %s~w~.'):format(targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~promu par %s~w~.'):format(sourceXPlayer.name))
+				TriggerClientEvent('esx:showNotification', target, _U('you_promoted'):format(sourceXPlayer.name))
 			else
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous devez demander une autorisation ~r~Gouvernementale~w~.')
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 			end
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Le joueur n\'es pas dans votre entreprise.')
@@ -214,8 +214,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(funct
 
 			if newGrade >= 0 then
 				targetXPlayer.setJob(targetJob.name, newGrade)
-
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_been_relegated'):format(targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target, _U('demoted_from'):format(sourceXPlayer.name))
 			else
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))
@@ -279,9 +278,9 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer2', makeTargetedEventFunction(fun
 				targetXPlayer.setJob2(targetJob2.name, newGrade)
 
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~g~promu %s~w~.'):format(targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~g~promu par %s~w~.'):format(sourceXPlayer.name))
+				TriggerClientEvent('esx:showNotification', target, _U('you_promoted'):format(sourceXPlayer.name))
 			else
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, 'Vous devez demander une autorisation ~r~Gouvernementale~w~.')
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_permission'))
 			end
 		else
 			TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('player_not_your_company'))
@@ -305,8 +304,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(func
 
 			if newGrade >= 0 then
 				targetXPlayer.setJob2(targetJob2.name, newGrade)
-
-				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
+				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _('you_been_relegated'):format(targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target, _U('demoted_from'):format(sourceXPlayer.name))
 			else
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))

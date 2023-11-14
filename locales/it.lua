@@ -219,5 +219,7 @@ Locales['it'] = {
 	['you_fired'] = 'Hai licenziato',
 	['you_hired_by'] = 'Sei stato assunto da:',
 	['not_downgrade'] = 'Non puoi più retrocedere',
-	['demoted_from'] = 'Sei stato retrocesso da:'
+	['demoted_from'] = 'Sei stato retrocesso da:',
+	['you_been_relegated'] = 'Hai retocesso:',
+	['you_promoted'] = 'Sei stato promosso da:'
 }
