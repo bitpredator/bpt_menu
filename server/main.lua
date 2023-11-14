@@ -216,7 +216,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(funct
 				targetXPlayer.setJob(targetJob.name, newGrade)
 
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~r~rétrogradé par %s~w~.'):format(sourceXPlayer.name))
+				TriggerClientEvent('esx:showNotification', target, _U('demoted_from'):format(sourceXPlayer.name))
 			else
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))
 			end
@@ -307,7 +307,7 @@ AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(func
 				targetXPlayer.setJob2(targetJob2.name, newGrade)
 
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, ('Vous avez ~r~rétrogradé %s~w~.'):format(targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target, ('Vous avez été ~r~rétrogradé par %s~w~.'):format(sourceXPlayer.name))
+				TriggerClientEvent('esx:showNotification', target, _U('demoted_from'):format(sourceXPlayer.name))
 			else
 				TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('not_downgrade'))
 			end
