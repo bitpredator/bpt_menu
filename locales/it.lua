@@ -221,5 +221,8 @@ Locales['it'] = {
 	['not_downgrade'] = 'Non puoi più retrocedere',
 	['demoted_from'] = 'Sei stato retrocesso da:',
 	['you_been_relegated'] = 'Hai retocesso:',
-	['you_promoted'] = 'Sei stato promosso da:'
+	['you_promoted'] = 'Sei stato promosso da:',
+	['promoted'] = 'Hai promosso:',
+	['givedirtymoney'] = 'Dai del denaro sporco',
+	['givebank'] = 'Dai del denaro in banca'
 }
