@@ -214,5 +214,15 @@ Locales['it'] = {
 	['received_money_cash'] = 'hai ricevuto del denaro in contanti',
 	['not_permission'] = 'Non sei autorizzato',
 	['player_not_your_company'] = 'Il giocatore non è nella tua azienda.',
-	['you_hired'] = 'Hai assunto nella tua azienda'
+	['you_hired'] = 'Hai assunto nella tua azienda',
+	['you_were_fired'] = 'Sei stato licenziato',
+	['you_fired'] = 'Hai licenziato',
+	['you_hired_by'] = 'Sei stato assunto da:',
+	['not_downgrade'] = 'Non puoi più retrocedere',
+	['demoted_from'] = 'Sei stato retrocesso da:',
+	['you_been_relegated'] = 'Hai retocesso:',
+	['you_promoted'] = 'Sei stato promosso da:',
+	['promoted'] = 'Hai promosso:',
+	['givedirtymoney'] = 'Dai del denaro sporco',
+	['givebank'] = 'Dai del denaro in banca'
 }

@@ -8,3 +8,4 @@
 <!-- Version 1.0.0 -->
 1. [fxmanifest]: chore: update fxmanifest for version 1.0.0 @bitpredator
 2. [workflows]: feat: uses lint to scan the source code @bitpredator
+3. refactor: adapting the code to support translations natively @bitpredator
