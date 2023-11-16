@@ -232,7 +232,7 @@ function RefreshMoney2()
 	end
 end
 
---Message text joueur
+-- Player text message
 function Text(text)
 	SetTextColour(186, 186, 186, 255)
 	SetTextFont(0)
@@ -987,7 +987,7 @@ function RenderBossMenu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_recruterplayer', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_recruitplayer', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1003,7 +1003,7 @@ function RenderBossMenu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_virerplayer', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_fireplayer', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1019,7 +1019,7 @@ function RenderBossMenu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_promouvoirplayer', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_promoteplayer', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1035,7 +1035,7 @@ function RenderBossMenu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_destituerplayer', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_dismissplayer', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1059,7 +1059,7 @@ function RenderBoss2Menu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_recruterplayer2', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_recruitplayer2', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1075,7 +1075,7 @@ function RenderBoss2Menu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_virerplayer2', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_fireplayer2', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1091,7 +1091,7 @@ function RenderBoss2Menu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_promouvoirplayer2', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_promoteplayer2', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
@@ -1107,7 +1107,7 @@ function RenderBoss2Menu()
 					if closestPlayer == -1 or closestDistance > 3.0 then
 						ESX.ShowNotification(_U('players_nearby'))
 					else
-						TriggerServerEvent('bpt_menu:Boss_destituerplayer2', GetPlayerServerId(closestPlayer))
+						TriggerServerEvent('bpt_menu:Boss_dismissplayer2', GetPlayerServerId(closestPlayer))
 					end
 				else
 					ESX.ShowNotification(_U('missing_rights'))
