@@ -172,8 +172,8 @@ AddEventHandler('bpt_menu:Admin_giveDirtyMoney', function(amount)
 end)
 
 -- Grade Menu --
-RegisterServerEvent('bpt_menu:Boss_promouvoirplayer')
-AddEventHandler('bpt_menu:Boss_promouvoirplayer', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_promoteplayer')
+AddEventHandler('bpt_menu:Boss_promoteplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
 
@@ -199,8 +199,8 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer', makeTargetedEventFunction(func
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_destituerplayer')
-AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_dismissplayer')
+AddEventHandler('bpt_menu:Boss_dismissplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
 
@@ -226,8 +226,8 @@ AddEventHandler('bpt_menu:Boss_destituerplayer', makeTargetedEventFunction(funct
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_recruterplayer')
-AddEventHandler('bpt_menu:Boss_recruterplayer', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_recruitplayer')
+AddEventHandler('bpt_menu:Boss_recruitplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
 
@@ -240,8 +240,8 @@ AddEventHandler('bpt_menu:Boss_recruterplayer', makeTargetedEventFunction(functi
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_virerplayer')
-AddEventHandler('bpt_menu:Boss_virerplayer', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_fireplayer')
+AddEventHandler('bpt_menu:Boss_fireplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
 
@@ -261,8 +261,8 @@ AddEventHandler('bpt_menu:Boss_virerplayer', makeTargetedEventFunction(function(
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_promouvoirplayer2')
-AddEventHandler('bpt_menu:Boss_promouvoirplayer2', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_promoteplayer2')
+AddEventHandler('bpt_menu:Boss_promoteplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
 
@@ -288,8 +288,8 @@ AddEventHandler('bpt_menu:Boss_promouvoirplayer2', makeTargetedEventFunction(fun
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_destituerplayer2')
-AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_dismissplayer2')
+AddEventHandler('bpt_menu:Boss_dismissplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
 
@@ -315,8 +315,8 @@ AddEventHandler('bpt_menu:Boss_destituerplayer2', makeTargetedEventFunction(func
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_recruterplayer2')
-AddEventHandler('bpt_menu:Boss_recruterplayer2', makeTargetedEventFunction(function(target, grade2)
+RegisterServerEvent('bpt_menu:Boss_recruitplayer2')
+AddEventHandler('bpt_menu:Boss_recruitplayer2', makeTargetedEventFunction(function(target, grade2)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
 
@@ -329,8 +329,8 @@ AddEventHandler('bpt_menu:Boss_recruterplayer2', makeTargetedEventFunction(funct
 	end
 end))
 
-RegisterServerEvent('bpt_menu:Boss_virerplayer2')
-AddEventHandler('bpt_menu:Boss_virerplayer2', makeTargetedEventFunction(function(target)
+RegisterServerEvent('bpt_menu:Boss_fireplayer2')
+AddEventHandler('bpt_menu:Boss_fireplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
 
