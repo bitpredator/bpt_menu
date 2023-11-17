@@ -1,4 +1,5 @@
-# bpt_menu
+<h1 align='center'>bpt_menu</a></h1>
+<p align='center'><a href='https://discord.gg/ksGfNvDEfq'>Discord</a>
 
 Copyright (C) 2022-2023 bitpredator
 
