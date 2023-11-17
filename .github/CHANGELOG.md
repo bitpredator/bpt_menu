@@ -10,3 +10,4 @@
 2. [workflows]: feat: uses lint to scan the source code @bitpredator
 3. refactor: adapting the code to support translations natively @bitpredator
 4. refactor: Some parts of the code have been converted to English to adapt to community standards @bitpredator
+5. [readme]: chore: Discord invite added @bitpredator
