@@ -11,3 +11,4 @@
 3. refactor: adapting the code to support translations natively @bitpredator
 4. refactor: Some parts of the code have been converted to English to adapt to community standards @bitpredator
 5. [readme]: chore: Discord invite added @bitpredator
+6. [client/main.lua]: refactor: improve the code by replacing GetHashKey > joaat @MoskalykA
