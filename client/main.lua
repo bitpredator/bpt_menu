@@ -63,7 +63,7 @@ CreateThread(function()
 			if weaponData.name == 'WEAPON_UNARMED' then
 				table.remove(weaponsData, i)
 			else
-				weaponData.hash = joaat(weaponData.name)
+				weaponData.hash = GetHashKey(weaponData.name)
 			end
 		end
 
