@@ -56,17 +56,17 @@ CreateThread(function()
 		end
 
 		local weaponsData = ESX.GetWeaponList()
-	
+
 		for i = #weaponsData, 1, -1 do
 			local weaponData = weaponsData[i]
-	
+
 			if weaponData.name == 'WEAPON_UNARMED' then
 				table.remove(weaponsData, i)
 			else
-				weaponData.hash = GetHashKey(weaponData.name)
+				weaponData.hash = joaat(weaponData.name)
 			end
 		end
-	
+
 		PersonalMenu.WeaponData = weaponsData
 	end
 end)
@@ -158,7 +158,7 @@ end)
 
 -- Weapon Menu --
 RegisterNetEvent('bpt_menu:Weapon_addAmmoToPedC', function(value, quantity)
-	local weaponHash = GetHashKey(value)
+	local weaponHash = joaat(value)
 
 	if HasPedGotWeapon(plyPed, weaponHash, false) and value ~= 'WEAPON_UNARMED' then
 		AddAmmoToPed(plyPed, value, quantity)
