@@ -54,6 +54,98 @@ CreateThread(function()
 			Wait(100)
 		end
 	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
+
+	while actualSkin == nil do
+		TriggerEvent('skinchanger:getSkin', function(skin) actualSkin = skin end)
+		Wait(100)
+	end
+
+	RefreshMoney()
+
+	if Config.DoubleJob then
+		RefreshMoney2()
+	end
+
+	PersonalMenu.WeaponData = ESX.GetWeaponList()
+
+	for i = 1, #PersonalMenu.WeaponData, 1 do
+		if PersonalMenu.WeaponData[i].name == 'WEAPON_UNARMED' then
+			PersonalMenu.WeaponData[i] = nil
+		else
+			PersonalMenu.WeaponData[i].hash = joaat(PersonalMenu.WeaponData[i].name)
+		end
+	end
+
+	for i = 1, #Config.GPS, 1 do
+		table.insert(PersonalMenu.GPSList, Config.GPS[i].label)
+	end
+
+	for i = 1, #Config.Voice.items, 1 do
+		table.insert(PersonalMenu.VoiceList, Config.Voice.items[i].label)
+	end
+
+	RMenu.Add('rageui', 'personal', RageUI.CreateMenu(Config.MenuTitle, _U('mainmenu_subtitle'), 0, 0, 'commonmenu', 'interaction_bgd', 255, 255, 255, 255))
+
+	RMenu.Add('personal', 'inventory', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('inventory_title')))
+	RMenu.Add('personal', 'loadout', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('loadout_title')))
+	RMenu.Add('personal', 'wallet', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('wallet_title')))
+	RMenu.Add('personal', 'billing', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('bills_title')))
+	RMenu.Add('personal', 'clothes', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('clothes_title')))
+	RMenu.Add('personal', 'accessories', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('accessories_title')))
+	RMenu.Add('personal', 'animation', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('animation_title')))
+	RMenu.Add('personal', 'vehicle', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('vehicle_title')), function()
+		if IsPedSittingInAnyVehicle(plyPed) then
+			if (GetPedInVehicleSeat(GetVehiclePedIsIn(plyPed, false), -1) == plyPed) then
+				return true
+			end
+		end
+
+		return false
+	end)
+
+	RMenu.Add('personal', 'boss', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('bossmanagement_title')), function()
+		if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
+			return true
+		end
+
+		return false
+	end)
+
+	if Config.DoubleJob then
+		RMenu.Add('personal', 'boss2', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('bossmanagement2_title')), function()
+			if Config.DoubleJob then
+				if ESX.PlayerData.job2 ~= nil and ESX.PlayerData.job2.grade_name == 'boss' then
+					return true
+				end
+			end
+
+			return false
+		end)
+	end
+
+	RMenu.Add('personal', 'admin', RageUI.CreateSubMenu(RMenu.Get('rageui', 'personal'), _U('admin_title')), function()
+		if Player.group ~= nil and (Player.group == 'mod' or Player.group == 'admin' or Player.group == 'superadmin' or Player.group == 'owner' or Player.group == '_dev') then
+			return true
+		end
+
+		return false
+	end)
+
+	RMenu.Add('inventory', 'actions', RageUI.CreateSubMenu(RMenu.Get('personal', 'inventory'), _U('inventory_actions_title')))
+	RMenu.Get('inventory', 'actions').Closed = function()
+		PersonalMenu.ItemSelected = nil
+	end
+
+	RMenu.Add('loadout', 'actions', RageUI.CreateSubMenu(RMenu.Get('personal', 'loadout'), _U('loadout_actions_title')))
+	RMenu.Get('loadout', 'actions').Closed = function()
+		PersonalMenu.ItemSelected = nil
+	end
+
+	for i = 1, #Config.Animations, 1 do
+		RMenu.Add('animation', Config.Animations[i].name, RageUI.CreateSubMenu(RMenu.Get('personal', 'animation'), Config.Animations[i].label))
+	end
 end)
 
 for i = 1, #Config.GPS do
@@ -128,8 +220,42 @@ AddEventHandler('playerSpawned', function()
 	PlayerVars.isDead = false
 end)
 
--- Admin Menu
-RegisterNetEvent('bpt_menu:Admin_BringC', function(plyCoords)
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+	RefreshMoney()
+end)
+
+RegisterNetEvent('esx:setJob2')
+AddEventHandler('esx:setJob2', function(job2)
+	ESX.PlayerData.job2 = job2
+	RefreshMoney2()
+end)
+
+RegisterNetEvent('esx_addonaccount:setMoney')
+AddEventHandler('esx_addonaccount:setMoney', function(society, money)
+	if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' and 'society_' .. ESX.PlayerData.job.name == society then
+		societymoney = ESX.Math.GroupDigits(money)
+	end
+
+	if ESX.PlayerData.job2 ~= nil and ESX.PlayerData.job2.grade_name == 'boss' and 'society_' .. ESX.PlayerData.job2.name == society then
+		societymoney2 = ESX.Math.GroupDigits(money)
+	end
+end)
+
+-- Weapon Menu --
+RegisterNetEvent('bpt_menu:Weapon_addAmmoToPedC')
+AddEventHandler('bpt_menu:Weapon_addAmmoToPedC', function(value, quantity)
+	local weaponHash = joaat(value)
+
+	if HasPedGotWeapon(plyPed, weaponHash, false) and value ~= 'WEAPON_UNARMED' then
+		AddAmmoToPed(plyPed, value, quantity)
+	end
+end)
+
+-- Admin Menu --
+RegisterNetEvent('bpt_menu:Admin_BringC')
+AddEventHandler('bpt_menu:Admin_BringC', function(plyCoords)
 	SetEntityCoords(plyPed, plyCoords)
 end)
 
